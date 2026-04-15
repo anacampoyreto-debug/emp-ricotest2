@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rechazo social · Test 2 UNED</title>
+
+<style>
+:root{
+  --bg:#f7f4ff;
+  --bg2:#efe7ff;
+  --card:#ffffff;
+  --ink:#241b35;
+  --muted:#6f6487;
+  --line:#ddd2f7;
+  --violet:#6d28d9;
+  --violet2:#8b5cf6;
+  --ok:#166534;
+  --okbg:#ecfdf3;
+  --bad:#991b1b;
+  --badbg:#fef2f2;
+  --shadow:0 14px 40px rgba(68,39,133,.12);
+  --radius:22px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui;
+  background:linear-gradient(180deg,var(--bg),#fff 40%,var(--bg2));
+  color:var(--ink);
+}
+.wrap{max-width:1200px;margin:auto;padding:24px}
+
+.hero{
+  background:linear-gradient(135deg,#4c1d95,#7c3aed 55%,#c084fc);
+  color:#fff;
+  border-radius:30px;
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+
+.grid{display:grid;grid-template-columns:320px 1fr;gap:20px;margin-top:20px}
+
+.panel,.mainCard,.question{
+  background:var(--card);
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+
+.panel{padding:18px;position:sticky;top:20px}
+
+.stat{margin:10px 0}
+.bar{height:10px;background:#eee;border-radius:10px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--violet);width:0}
+
+button{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,var(--violet),var(--violet2));
+  color:#fff;
+}
+button.secondary{
+  background:#fff;color:var(--violet);
+  border:1px solid var(--line);
+}
+
+.mainCard{padding:20px}
+
+.question{padding:16px;margin-bottom:14px}
+.option{display:block;padding:10px;border:1px solid var(--line);border-radius:12px;margin:6px 0;cursor:pointer}
+.option:hover{border-color:#a78bfa}
+
+.correct{background:var(--okbg);border-color:#bbf7d0}
+.incorrect{background:var(--badbg);border-color:#fecaca}
+
+.feedback{margin-top:10px;padding:10px;border-radius:10px;display:none}
+.feedback.ok{display:block;background:#effcf4;color:var(--ok)}
+.feedback.bad{display:block;background:#fff1f2;color:var(--bad)}
+
+.summary{margin-top:20px;padding:16px;border-radius:16px;background:#faf7ff;border:1px solid var(--line)}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="hero">
+  <h1>Rechazo social · Test 2</h1>
+</div>
+
+<div class="grid">
+
+<div class="panel">
+  <div class="stat">Respondidas: <strong id="answered">0</strong></div>
+  <div class="stat">Aciertos: <strong id="correct">0</strong></div>
+  <div class="stat">Errores: <strong id="wrong">0</strong></div>
+
+  <div class="bar"><span id="progress"></span></div>
+
+  <button onclick="corregir()">Corregir test</button>
+  <button class="secondary" onclick="modoErrores()">Practicar errores</button>
+  <button class="secondary" onclick="modoTrampas()">Solo trampas</button>
+  <button class="secondary" onclick="modoCompleto()">Test completo</button>
+</div>
+
+<div class="mainCard">
+  <div id="test"></div>
+
+  <div class="summary" id="resumen" style="display:none"></div>
+</div>
+
+</div>
+</div>
+
+<script>
+
+const preguntas = [
+
+{
+id:1, trap:true,
+p:"El rechazo social se diferencia de la exclusión social en que:",
+o:[
+"Son exactamente lo mismo",
+"El rechazo es una interpretación subjetiva más amplia",
+"La exclusión es más psicológica",
+"El rechazo es siempre conductual"
+],
+r:1,
+e:"El rechazo incluye interpretación subjetiva, no solo exclusión observable."
+},
+
+{
+id:2, trap:true,
+p:"El entumecimiento emocional implica:",
+o:[
+"Mayor intensidad emocional",
+"Ausencia o reducción de respuesta emocional",
+"Aumento de empatía",
+"Mayor control emocional"
+],
+r:1,
+e:"Se refiere a una disminución de la respuesta emocional."
+},
+
+{
+id:3, trap:false,
+p:"El valor relacional depende principalmente de:",
+o:[
+"Variables biológicas",
+"La percepción de aceptación por otros",
+"El nivel económico",
+"La inteligencia"
+],
+r:1,
+e:"Se basa en cómo creemos que otros nos valoran."
+},
+
+{
+id:4, trap:true,
+p:"Una disminución del rendimiento cognitivo tras rechazo indica:",
+o:[
+"Mayor concentración",
+"Efecto neutro",
+"Alteración de procesos cognitivos",
+"Mejora de memoria"
+],
+r:2,
+e:"El rechazo afecta al funcionamiento cognitivo."
+},
+
+{
+id:5, trap:false,
+p:"El rechazo social afecta directamente a:",
+o:[
+"Solo emoción",
+"Solo conducta",
+"Emoción, cognición y conducta",
+"Nada relevante"
+],
+r:2,
+e:"Impacta en múltiples sistemas."
+},
+
+{
+id:6, trap:true,
+p:"La autorregulación tras rechazo:",
+o:[
+"Mejora automáticamente",
+"Se mantiene igual",
+"Se debilita",
+"Desaparece completamente"
+],
+r:2,
+e:"El control de impulsos disminuye."
+},
+
+{
+id:7, trap:false,
+p:"Una respuesta conductual posible al rechazo es:",
+o:[
+"Inmovilidad total",
+"Aislamiento o agresión",
+"Ninguna respuesta",
+"Solo pensamiento"
+],
+r:1,
+e:"Puede haber evitación o conducta antisocial."
+},
+
+{
+id:8, trap:true,
+p:"La percepción del rechazo es:",
+o:[
+"Objetiva siempre",
+"Totalmente externa",
+"Subjetiva en gran medida",
+"Igual para todos"
+],
+r:2,
+e:"Depende de interpretación personal."
+},
+
+{
+id:9, trap:false,
+p:"Los estudios experimentales permiten:",
+o:[
+"Eliminar variables",
+"Controlar condiciones",
+"Evitar hipótesis",
+"No medir nada"
+],
+r:1,
+e:"Permiten analizar causalidad."
+},
+
+{
+id:10, trap:true,
+p:"El rechazo siempre produce:",
+o:[
+"Agresión",
+"Tristeza intensa",
+"Una única respuesta",
+"Respuestas variadas"
+],
+r:3,
+e:"Las respuestas pueden ser diversas."
+}
+
+];
+
+let modo="full";
+let errores=JSON.parse(localStorage.getItem("errores2")||"[]");
+
+function render(){
+let lista=modo==="errores"
+? preguntas.filter(q=>errores.includes(q.id))
+: modo==="trampas"
+? preguntas.filter(q=>q.trap)
+: preguntas;
+
+document.getElementById("test").innerHTML=lista.map(q=>`
+<div class="question" id="q${q.id}">
+<p><strong>${q.p}</strong></p>
+${q.o.map((op,i)=>`
+<label class="option">
+<input type="radio" name="q${q.id}" value="${i}"> ${op}
+</label>
+`).join("")}
+<div class="feedback" id="f${q.id}"></div>
+</div>
+`).join("");
+}
+
+function corregir(){
+let correct=0,wrong=0,answered=0;
+let nuevos=[];
+
+preguntas.forEach(q=>{
+let sel=document.querySelector(`input[name=q${q.id}]:checked`);
+let box=document.getElementById("q"+q.id);
+let fb=document.getElementById("f"+q.id);
+
+box.classList.remove("correct","incorrect");
+fb.className="feedback";
+
+if(!sel)return;
+
+answered++;
+if(Number(sel.value)===q.r){
+correct++;
+box.classList.add("correct");
+fb.classList.add("ok");
+fb.innerHTML="Correcta. "+q.e;
+}else{
+wrong++;
+nuevos.push(q.id);
+box.classList.add("incorrect");
+fb.classList.add("bad");
+fb.innerHTML="Incorrecta. "+q.e;
+}
+});
+
+errores=[...new Set([...errores,...nuevos])];
+localStorage.setItem("errores2",JSON.stringify(errores));
+
+document.getElementById("answered").textContent=answered;
+document.getElementById("correct").textContent=correct;
+document.getElementById("wrong").textContent=wrong;
+document.getElementById("progress").style.width=(answered/preguntas.length*100)+"%";
+
+document.getElementById("resumen").style.display="block";
+document.getElementById("resumen").innerHTML=
+`Aciertos: ${correct} | Errores: ${wrong}<br>Puntuación: ${(correct - wrong*0.33).toFixed(2)}`;
+}
+
+function modoErrores(){modo="errores";render();}
+function modoTrampas(){modo="trampas";render();}
+function modoCompleto(){modo="full";render();}
+
+render();
+
+</script>
+
+</body>
+</html>
