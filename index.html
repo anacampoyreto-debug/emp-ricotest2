@@ -116,7 +116,6 @@ button.secondary{
 
 <div class="mainCard">
   <div id="test"></div>
-
   <div class="summary" id="resumen" style="display:none"></div>
 </div>
 
@@ -124,212 +123,135 @@ button.secondary{
 </div>
 
 <script>
-
 const preguntas = [
-
-{
-id:1, trap:true,
-p:"El rechazo social se diferencia de la exclusión social en que:",
-o:[
-"Son exactamente lo mismo",
-"El rechazo es una interpretación subjetiva más amplia",
-"La exclusión es más psicológica",
-"El rechazo es siempre conductual"
-],
-r:1,
-e:"El rechazo incluye interpretación subjetiva, no solo exclusión observable."
-},
-
-{
-id:2, trap:true,
-p:"El entumecimiento emocional implica:",
-o:[
-"Mayor intensidad emocional",
-"Ausencia o reducción de respuesta emocional",
-"Aumento de empatía",
-"Mayor control emocional"
-],
-r:1,
-e:"Se refiere a una disminución de la respuesta emocional."
-},
-
-{
-id:3, trap:false,
-p:"El valor relacional depende principalmente de:",
-o:[
-"Variables biológicas",
-"La percepción de aceptación por otros",
-"El nivel económico",
-"La inteligencia"
-],
-r:1,
-e:"Se basa en cómo creemos que otros nos valoran."
-},
-
-{
-id:4, trap:true,
-p:"Una disminución del rendimiento cognitivo tras rechazo indica:",
-o:[
-"Mayor concentración",
-"Efecto neutro",
-"Alteración de procesos cognitivos",
-"Mejora de memoria"
-],
-r:2,
-e:"El rechazo afecta al funcionamiento cognitivo."
-},
-
-{
-id:5, trap:false,
-p:"El rechazo social afecta directamente a:",
-o:[
-"Solo emoción",
-"Solo conducta",
-"Emoción, cognición y conducta",
-"Nada relevante"
-],
-r:2,
-e:"Impacta en múltiples sistemas."
-},
-
-{
-id:6, trap:true,
-p:"La autorregulación tras rechazo:",
-o:[
-"Mejora automáticamente",
-"Se mantiene igual",
-"Se debilita",
-"Desaparece completamente"
-],
-r:2,
-e:"El control de impulsos disminuye."
-},
-
-{
-id:7, trap:false,
-p:"Una respuesta conductual posible al rechazo es:",
-o:[
-"Inmovilidad total",
-"Aislamiento o agresión",
-"Ninguna respuesta",
-"Solo pensamiento"
-],
-r:1,
-e:"Puede haber evitación o conducta antisocial."
-},
-
-{
-id:8, trap:true,
-p:"La percepción del rechazo es:",
-o:[
-"Objetiva siempre",
-"Totalmente externa",
-"Subjetiva en gran medida",
-"Igual para todos"
-],
-r:2,
-e:"Depende de interpretación personal."
-},
-
-{
-id:9, trap:false,
-p:"Los estudios experimentales permiten:",
-o:[
-"Eliminar variables",
-"Controlar condiciones",
-"Evitar hipótesis",
-"No medir nada"
-],
-r:1,
-e:"Permiten analizar causalidad."
-},
-
-{
-id:10, trap:true,
-p:"El rechazo siempre produce:",
-o:[
-"Agresión",
-"Tristeza intensa",
-"Una única respuesta",
-"Respuestas variadas"
-],
-r:3,
-e:"Las respuestas pueden ser diversas."
-}
-
+{ id:1, trap:true, p:"La necesidad de pertenencia se considera una motivación básica porque:", o:["Es una costumbre social adquirida","Su amenaza tiene efectos psicológicos profundos","Solo aparece en la infancia","Depende del nivel cultural"], r:1, e:"Se considera básica porque la amenaza a la pertenencia produce consecuencias intensas y amplias."},
+{ id:2, trap:true, p:"El rechazo social se diferencia de otros términos próximos porque:", o:["Siempre implica agresión directa","Puede incluir una vivencia subjetiva de no ser valorado","Se refiere solo a la discriminación legal","Es idéntico al ostracismo"], r:1, e:"El rechazo social es un concepto amplio y puede incluir la experiencia subjetiva de exclusión o desvaloración."},
+{ id:3, trap:false, p:"El valor relacional alude a:", o:["El estatus económico dentro del grupo","La importancia objetiva de una persona","La percepción de cuánto nos valoran los demás","La capacidad para resolver conflictos"], r:2, e:"El valor relacional se refiere a cómo percibimos que otros nos valoran dentro de una relación o grupo."},
+{ id:4, trap:true, p:"Una de las dificultades para definir el rechazo social es que:", o:["No tiene consecuencias observables","Se utilizan de forma imprecisa términos relacionados","Solo puede estudiarse clínicamente","Varía únicamente según la edad"], r:1, e:"La literatura usa términos próximos como exclusión, ostracismo o discriminación, lo que complica delimitarlo."},
+{ id:5, trap:false, p:"Cuando la pertenencia se ve amenazada, una consecuencia probable es:", o:["Indiferencia generalizada","Aumento automático del rendimiento","Malestar psicológico","Mejora de la autorregulación"], r:2, e:"La amenaza a la pertenencia suele generar malestar y diversas consecuencias psicológicas."},
+{ id:6, trap:true, p:"El entumecimiento emocional se refiere a:", o:["Una emoción muy intensa y prolongada","La reducción o amortiguación de la respuesta emocional","Una mejora del control afectivo","Una reacción exclusiva de personas adultas"], r:1, e:"El entumecimiento emocional describe una disminución de la respuesta afectiva tras el rechazo."},
+{ id:7, trap:false, p:"Entre las consecuencias del rechazo social se incluyen:", o:["Solo efectos emocionales","Solo cambios de conducta","Efectos emocionales, cognitivos y conductuales","Únicamente problemas atencionales"], r:2, e:"El rechazo se ha relacionado con consecuencias en varios planos: emoción, cognición y conducta."},
+{ id:8, trap:true, p:"El rechazo social puede afectar a la autorregulación porque:", o:["Aumenta el autocontrol por miedo al castigo","Consume recursos psicológicos necesarios para controlar impulsos","Hace desaparecer las metas personales","Impide recordar normas sociales"], r:1, e:"La autorregulación puede debilitarse porque el rechazo consume recursos y altera el control de la conducta."},
+{ id:9, trap:false, p:"Una reacción conductual posible ante el rechazo es:", o:["Solo la búsqueda de contacto","Solo la pasividad","La agresión o la evitación","La ausencia total de respuesta"], r:2, e:"El rechazo puede traducirse en respuestas como agresión, evitación o retirada."},
+{ id:10, trap:true, p:"La percepción de rechazo depende en gran medida de:", o:["Variables fisiológicas exclusivamente","La interpretación subjetiva de la situación","La edad cronológica","La inteligencia verbal"], r:1, e:"No solo importan los hechos objetivos, sino cómo se interpretan."},
+{ id:11, trap:false, p:"Los paradigmas experimentales de exclusión social permiten:", o:["Eliminar cualquier emoción del participante","Controlar condiciones y estudiar efectos causales","Sustituir completamente el estudio naturalista","Medir solo respuestas verbales"], r:1, e:"Los experimentos permiten controlar variables y observar el efecto del rechazo o la exclusión."},
+{ id:12, trap:true, p:"Que el rechazo social reduzca el rendimiento cognitivo significa que:", o:["La persona deja de pensar","Pueden verse afectados procesos como atención o razonamiento","Solo se altera la memoria a largo plazo","La emoción no influye en la cognición"], r:1, e:"El rechazo puede perjudicar procesos cognitivos relevantes como atención, memoria de trabajo o rendimiento."},
+{ id:13, trap:false, p:"La necesidad de pertenencia ha sido destacada especialmente por:", o:["Festinger y Asch","Baumeister y Leary","Tajfel y Turner","Milgram y Zimbardo"], r:1, e:"Baumeister y Leary son una referencia clave al hablar de la necesidad de pertenencia."},
+{ id:14, trap:true, p:"Decir que el rechazo social es un fenómeno psicosocial implica que:", o:["Es únicamente interno y emocional","Surge de la interacción entre persona y contexto social","Se explica solo por la biología","No puede observarse experimentalmente"], r:1, e:"Es psicosocial porque combina experiencia subjetiva y dinámicas interpersonales o grupales."},
+{ id:15, trap:false, p:"El rechazo puede relacionarse con una disminución de:", o:["La percepción del color","La autoestima y el bienestar","La lateralidad manual","La comprensión gramatical"], r:1, e:"Entre sus consecuencias se señalan caídas en autoestima, bienestar y funcionamiento psicológico."},
+{ id:16, trap:true, p:"La exclusión social puede entenderse como:", o:["Un proceso ajeno al rechazo","Una forma concreta de rechazo social","Un sinónimo exacto de autoestima baja","Una emoción básica"], r:1, e:"La exclusión social es una forma específica dentro del fenómeno más amplio del rechazo."},
+{ id:17, trap:false, p:"La experiencia de rechazo social puede presentarse:", o:["Solo en adolescentes","Solo en adultos con problemas clínicos","A lo largo de toda la vida","Únicamente en contextos escolares"], r:2, e:"El rechazo puede darse en diferentes edades y contextos."},
+{ id:18, trap:true, p:"Una interpretación correcta del valor relacional sería:", o:["Es una característica fija de personalidad","Refleja cómo creemos que los demás nos aprecian o aceptan","Es equivalente al atractivo físico","Mide la popularidad objetiva"], r:1, e:"Lo central es la percepción del valor que uno tiene para otros."},
+{ id:19, trap:false, p:"Una reacción emocional típica asociada al rechazo es:", o:["Euforia","Malestar o vacío","Curiosidad intelectual","Entusiasmo"], r:1, e:"El rechazo puede producir malestar emocional, vacío o reducción afectiva."},
+{ id:20, trap:true, p:"El hecho de que existan respuestas variadas ante el rechazo indica que:", o:["El rechazo no tiene efectos claros","No hay una única reacción universal","Nunca produce agresión","Siempre lleva a la búsqueda de apoyo"], r:1, e:"Las respuestas son diversas: pueden ser emocionales, cognitivas o conductuales, y no siguen una sola forma."},
+{ id:21, trap:false, p:"La autorregulación hace referencia principalmente a:", o:["La capacidad para controlar impulsos y conducta","La rapidez de reacción","La memoria episódica","La sensibilidad al dolor"], r:0, e:"La autorregulación se vincula con el control de la conducta y de los impulsos."},
+{ id:22, trap:true, p:"Si una persona, tras sentirse rechazada, responde con aislamiento, esto muestra que el rechazo puede:", o:["No tener consecuencias conductuales","Traducirse en retirada social","Aumentar automáticamente el apoyo percibido","Eliminar el valor relacional"], r:1, e:"La retirada o aislamiento es una de las posibles respuestas conductuales al rechazo."},
+{ id:23, trap:false, p:"Cuando se afirma que el rechazo puede alterar la atención, se está señalando una consecuencia:", o:["Fisiológica","Cognitiva","Moral","Lingüística"], r:1, e:"La atención forma parte del funcionamiento cognitivo."},
+{ id:24, trap:true, p:"Confundir rechazo social con discriminación sería un error porque:", o:["La discriminación no es social","La discriminación es solo una de varias formas relacionadas","El rechazo es siempre legal","La discriminación solo afecta a grupos grandes"], r:1, e:"La discriminación es un fenómeno relacionado, pero no agota todo lo que se entiende por rechazo social."},
+{ id:25, trap:false, p:"El rechazo social puede afectar negativamente al bienestar porque:", o:["Fortalece todos los vínculos","Amenaza una necesidad básica","Incrementa siempre la aceptación grupal","Reduce el número de emociones"], r:1, e:"Al amenazar la pertenencia, puede deteriorar el bienestar psicológico."},
+{ id:26, trap:true, p:"Una conclusión ajustada sobre el rechazo social sería que:", o:["Solo importa si hay agresión abierta","Puede experimentarse incluso sin una exclusión explícita clara","No depende nunca de la interpretación","No influye en la conducta"], r:1, e:"La vivencia subjetiva puede ser suficiente para experimentar rechazo, incluso sin agresión manifiesta."},
+{ id:27, trap:false, p:"El estudio empírico del rechazo social busca comprender:", o:["Solo opiniones personales sin contraste","Cómo se manifiesta y qué consecuencias tiene","Únicamente diferencias culturales","Solo problemas clínicos graves"], r:1, e:"La investigación empírica analiza manifestaciones, mecanismos y consecuencias del rechazo."},
+{ id:28, trap:true, p:"Si el rechazo reduce la capacidad de control conductual, una consecuencia probable es:", o:["Mayor autocontrol","Mayor vulnerabilidad a respuestas impulsivas","Supresión total de emociones","Mejora del razonamiento abstracto"], r:1, e:"Cuando falla la autorregulación, aumentan las respuestas impulsivas o desajustadas."},
+{ id:29, trap:false, p:"La amenaza a la pertenencia puede entenderse como:", o:["Una experiencia irrelevante","Un riesgo para una necesidad humana básica","Un fenómeno solo académico","Una simple pérdida material"], r:1, e:"La pertenencia se considera una necesidad básica, por eso su amenaza resulta tan relevante."},
+{ id:30, trap:true, p:"La formulación más completa sobre el rechazo social es que:", o:["Es un fenómeno exclusivamente emocional","Es una experiencia con componentes sociales, cognitivos y afectivos","Se reduce a la ausencia de amistad","Solo aparece en contextos extremos"], r:1, e:"El rechazo social integra elementos sociales, emocionales, cognitivos y conductuales."}
 ];
 
 let modo="full";
 let errores=JSON.parse(localStorage.getItem("errores2")||"[]");
 
-function render(){
-let lista=modo==="errores"
-? preguntas.filter(q=>errores.includes(q.id))
-: modo==="trampas"
-? preguntas.filter(q=>q.trap)
-: preguntas;
+function obtenerListaActiva(){
+  if(modo==="errores"){
+    return preguntas.filter(q=>errores.includes(q.id));
+  }
+  if(modo==="trampas"){
+    return preguntas.filter(q=>q.trap);
+  }
+  return preguntas;
+}
 
-document.getElementById("test").innerHTML=lista.map(q=>`
-<div class="question" id="q${q.id}">
-<p><strong>${q.p}</strong></p>
-${q.o.map((op,i)=>`
-<label class="option">
-<input type="radio" name="q${q.id}" value="${i}"> ${op}
-</label>
-`).join("")}
-<div class="feedback" id="f${q.id}"></div>
-</div>
-`).join("");
+function render(){
+  const lista=obtenerListaActiva();
+
+  document.getElementById("test").innerHTML=lista.length ? lista.map(q=>`
+    <div class="question" id="q${q.id}">
+      <p><strong>${q.p}</strong></p>
+      ${q.o.map((op,i)=>`
+        <label class="option">
+          <input type="radio" name="q${q.id}" value="${i}"> ${op}
+        </label>
+      `).join("")}
+      <div class="feedback" id="f${q.id}"></div>
+    </div>
+  `).join("") : `<div class="summary">Todavía no hay errores guardados en este test.</div>`;
+
+  document.getElementById("resumen").style.display="none";
+  document.getElementById("answered").textContent="0";
+  document.getElementById("correct").textContent="0";
+  document.getElementById("wrong").textContent="0";
+  document.getElementById("progress").style.width="0%";
 }
 
 function corregir(){
-let correct=0,wrong=0,answered=0;
-let nuevos=[];
+  const lista=obtenerListaActiva();
+  let correct=0, wrong=0, answered=0;
+  let nuevos=[];
 
-preguntas.forEach(q=>{
-let sel=document.querySelector(`input[name=q${q.id}]:checked`);
-let box=document.getElementById("q"+q.id);
-let fb=document.getElementById("f"+q.id);
+  lista.forEach(q=>{
+    const sel=document.querySelector(`input[name="q${q.id}"]:checked`);
+    const box=document.getElementById("q"+q.id);
+    const fb=document.getElementById("f"+q.id);
 
-box.classList.remove("correct","incorrect");
-fb.className="feedback";
+    if(!box || !fb) return;
 
-if(!sel)return;
+    box.classList.remove("correct","incorrect");
+    fb.className="feedback";
+    fb.innerHTML="";
 
-answered++;
-if(Number(sel.value)===q.r){
-correct++;
-box.classList.add("correct");
-fb.classList.add("ok");
-fb.innerHTML="Correcta. "+q.e;
-}else{
-wrong++;
-nuevos.push(q.id);
-box.classList.add("incorrect");
-fb.classList.add("bad");
-fb.innerHTML="Incorrecta. "+q.e;
+    if(!sel) return;
+
+    answered++;
+
+    if(Number(sel.value)===q.r){
+      correct++;
+      box.classList.add("correct");
+      fb.classList.add("ok");
+      fb.innerHTML="Correcta. "+q.e;
+    }else{
+      wrong++;
+      nuevos.push(q.id);
+      box.classList.add("incorrect");
+      fb.classList.add("bad");
+      fb.innerHTML="Incorrecta. "+q.e;
+    }
+  });
+
+  errores=[...new Set([...errores,...nuevos])];
+  localStorage.setItem("errores2",JSON.stringify(errores));
+
+  document.getElementById("answered").textContent=answered;
+  document.getElementById("correct").textContent=correct;
+  document.getElementById("wrong").textContent=wrong;
+  document.getElementById("progress").style.width=(answered/Math.max(lista.length,1)*100)+"%";
+
+  document.getElementById("resumen").style.display="block";
+  document.getElementById("resumen").innerHTML=
+    `Aciertos: ${correct} | Errores: ${wrong}<br>Puntuación: ${(correct - wrong*0.33).toFixed(2)}`;
 }
-});
 
-errores=[...new Set([...errores,...nuevos])];
-localStorage.setItem("errores2",JSON.stringify(errores));
-
-document.getElementById("answered").textContent=answered;
-document.getElementById("correct").textContent=correct;
-document.getElementById("wrong").textContent=wrong;
-document.getElementById("progress").style.width=(answered/preguntas.length*100)+"%";
-
-document.getElementById("resumen").style.display="block";
-document.getElementById("resumen").innerHTML=
-`Aciertos: ${correct} | Errores: ${wrong}<br>Puntuación: ${(correct - wrong*0.33).toFixed(2)}`;
+function modoErrores(){
+  modo="errores";
+  render();
 }
-
-function modoErrores(){modo="errores";render();}
-function modoTrampas(){modo="trampas";render();}
-function modoCompleto(){modo="full";render();}
+function modoTrampas(){
+  modo="trampas";
+  render();
+}
+function modoCompleto(){
+  modo="full";
+  render();
+}
 
 render();
-
 </script>
 
 </body>
